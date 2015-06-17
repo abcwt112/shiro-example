@@ -26,4 +26,17 @@ public class LastSuccessfulStrategy extends AbstractAuthenticationStrategy {
 		// TODO Auto-generated method stub
 		return merge(singleRealmInfo, aggregateInfo);
 	}
+	
+	@Override
+    public AuthenticationInfo afterAllAttempts(AuthenticationToken token, AuthenticationInfo aggregate) throws AuthenticationException {
+        //we know if one or more were able to succesfully authenticate if the aggregated account object does not
+        //contain null or empty data:
+        if (aggregate == null || CollectionUtils.isEmpty(aggregate.getPrincipals())) {
+            throw new AuthenticationException("Authentication token of type [" + token.getClass() + "] " +
+                    "could not be authenticated by any configured realms.  Please ensure that at least one realm can " +
+                    "authenticate these tokens.");
+        }
+
+        return aggregate;
+    }
 }
