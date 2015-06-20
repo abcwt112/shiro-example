@@ -12,7 +12,7 @@ import org.apache.shiro.realm.text.IniRealm;
  */
 public class BitAndWildPermissionResolver implements PermissionResolver {
 
-    @Override
+    
     public Permission resolvePermission(String permissionString) {
         if(permissionString.startsWith("+")) {
             return new BitPermission(permissionString);
