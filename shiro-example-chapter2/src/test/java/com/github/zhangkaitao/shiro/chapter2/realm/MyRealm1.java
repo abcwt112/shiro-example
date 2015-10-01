@@ -28,13 +28,13 @@ public class MyRealm1 implements Realm {
         String username = (String)token.getPrincipal();  //得到用户名
         String password = new String((char[])token.getCredentials()); //得到密码
         if(!"zhang".equals(username)) {
-            throw new UnknownAccountException(); //如果用户名错误
+        	System.out.println("unknow account -- realm1");
+            throw new UnknownAccountException("unknow account -- realm1"); //如果用户名错误
         }
         if(!"123".equals(password)) {
             throw new IncorrectCredentialsException(); //如果密码错误
         }
         //如果身份认证验证成功，返回一个AuthenticationInfo实现；
-    //    return new SimpleAuthenticationInfo(username, password, getName());
-        return null;
+        return new SimpleAuthenticationInfo(username, password, getName());
     }
 }
